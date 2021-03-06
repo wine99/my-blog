@@ -51,7 +51,7 @@ a {
 }
 
 .nav {
-  .login-menu-item {
+  #login-menu-item {
     float: right;
   }
 

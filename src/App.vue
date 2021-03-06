@@ -1,10 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="nav">
+      <el-menu
+        :default-active="activeIndex"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b"
+        router
+      >
+        <!-- <el-menu-item index="/">主页</el-menu-item> -->
+        <el-menu-item index="/" route="home">主页</el-menu-item>
+        <el-menu-item index="/write" route="write">写文章</el-menu-item>
+        <el-menu-item index="/about">关于</el-menu-item>
+        <el-menu-item id="login-menu-item">
+          <el-button
+            v-if="userInfo"
+            type="text"
+            class="login-button"
+            v-on:click="logout"
+            >注销</el-button
+          >
+          <el-button v-else type="text" class="login-button" v-on:click="login"
+            >登录</el-button
+          >
+        </el-menu-item>
+      </el-menu>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -17,16 +42,48 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+body {
+  margin: 0;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+a {
+  text-decoration: none;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.nav {
+  .login-menu-item {
+    float: right;
+  }
+
+  .login-button {
+    color: white;
+    height: 100%;
   }
 }
 </style>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      activeIndex: '/',
+      userInfo: window.localStorage.getItem('userInfo'),
+    };
+  },
+  methods: {
+    handleSelect() {
+    // handleSelect(key, keyPath) {
+      // console.log(key, keyPath);
+    },
+
+    login() {
+      // TODO call login
+    },
+
+    logout() {
+      // TODO call logout
+    },
+  },
+};
+</script>

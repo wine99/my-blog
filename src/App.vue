@@ -12,8 +12,8 @@
         router
       >
         <!-- <el-menu-item index="/">主页</el-menu-item> -->
-        <el-menu-item index="/" route="home">主页</el-menu-item>
-        <el-menu-item index="/write" route="write">写文章</el-menu-item>
+        <el-menu-item index="/">主页</el-menu-item>
+        <el-menu-item index="/write">写文章</el-menu-item>
         <el-menu-item index="/about">关于</el-menu-item>
         <el-menu-item id="login-menu-item">
           <el-button
@@ -29,6 +29,7 @@
         </el-menu-item>
       </el-menu>
     </div>
+
     <router-view />
   </div>
 </template>
@@ -44,6 +45,7 @@
 
 body {
   margin: 0;
+  margin-top: 80px;
 }
 
 a {
@@ -51,6 +53,10 @@ a {
 }
 
 .nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+
   #login-menu-item {
     float: right;
   }

@@ -2,7 +2,7 @@
   <div id="app">
     <div class="nav">
       <el-menu
-        :default-active="activeIndex"
+        :default-active="$route.path"
         class="el-menu-demo"
         mode="horizontal"
         @select="handleSelect"
@@ -11,7 +11,6 @@
         active-text-color="#ffd04b"
         router
       >
-        <!-- <el-menu-item index="/">主页</el-menu-item> -->
         <el-menu-item index="/">主页</el-menu-item>
         <el-menu-item index="/write">写文章</el-menu-item>
         <el-menu-item index="/about">关于</el-menu-item>
@@ -73,7 +72,6 @@ export default {
   name: 'App',
   data() {
     return {
-      activeIndex: '/',
       userInfo: window.localStorage.getItem('userInfo'),
     };
   },

@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <ArticleBlock v-for="article in articles" :key="article.id" v-bind:article="article" />
   </div>
 </template>
 
@@ -11,11 +12,23 @@
 </style>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
+import ArticleBlock from '@/components/ArticleBlock.vue';
+import dayjs from 'dayjs';
+import { articles } from '../fake-data';
 
 export default {
   name: 'Home',
-  components: {},
+  components: {
+    ArticleBlock,
+  },
+  data() {
+    return {
+      articles: articles.map((item) => {
+        const { ...article } = item;
+        article.createTime = dayjs(article.createTime).format('YYYY-MM-DD');
+        return article;
+      }),
+    };
+  },
 };
 </script>

@@ -78,8 +78,8 @@ export default {
     };
   },
   methods: {
-    handleSelect() {
-    // handleSelect(key, keyPath) {
+    // eslint-disable-next-line no-unused-vars
+    handleSelect(key, keyPath) {
       // console.log(key, keyPath);
     },
 
@@ -92,12 +92,13 @@ export default {
           console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          console.error(err);
         });
     },
 
     logout() {
-      // TODO call logout
+      window.localStorage.setItem('userInfo', null);
+      this.$data.userInfo = null;
     },
   },
 };

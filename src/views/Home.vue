@@ -14,21 +14,39 @@
 <script>
 import ArticleBlock from '@/components/ArticleBlock.vue';
 import dayjs from 'dayjs';
-import { articles } from '../fake-data';
 
 export default {
   name: 'Home',
   components: {
     ArticleBlock,
   },
+  mounted() {
+    this.getAllArticles();
+  },
+
   data() {
     return {
-      articles: articles.map((item) => {
-        const { ...article } = item;
-        article.createTime = dayjs(article.createTime).format('YYYY-MM-DD');
-        return article;
-      }),
+      articles: [],
     };
+  },
+
+  methods: {
+    getAllArticles() {
+      this.axios.get('/api/articles/all')
+        .then((res) => {
+          let articles = res.data;
+          articles = articles.map((article) => {
+            const { ...camel } = article;
+            camel.createTime = dayjs(article.create_time).format('YYYY-MM-DD');
+            camel.authorName = article.user_name;
+            return camel;
+          });
+          this.$data.articles = articles;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
   },
 };
 </script>

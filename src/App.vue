@@ -58,11 +58,13 @@ a {
 
   #login-menu-item {
     float: right;
+    padding: 0;
   }
 
   .login-button {
     color: white;
     height: 100%;
+    padding: 0 20px;
   }
 }
 </style>
@@ -82,7 +84,16 @@ export default {
     },
 
     login() {
-      // TODO call login
+      this.axios.post('/api/users/login', {
+        userName: 'YZJ',
+        password: '123',
+      })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
 
     logout() {

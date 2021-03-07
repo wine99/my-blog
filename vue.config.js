@@ -1,7 +1,14 @@
 module.exports = {
   devServer: {
-    open: true,
     hot: true,
+    proxy: {
+      '^/api': {
+        target: 'http://localhost:3000',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' },
+      },
+    },
   },
   chainWebpack: (config) => {
     // 修复HMR

@@ -10,7 +10,14 @@ Vue.prototype.axios = axios;
 
 Vue.use(ElementUI);
 
-new Vue({
+const vue = new Vue({
   router,
   render: (h) => h(App),
 }).$mount('#app');
+
+// TODO: Not very elegant
+// variable 'const vue' was introduced
+// and the router logic should not be written in this file
+router.onError((err) => {
+  vue.$message(err.message);
+});

@@ -19,15 +19,30 @@
             v-if="userInfo"
             type="text"
             class="login-button"
-            v-on:click="logout"
-            >注销</el-button
+            @click="logout"
+            >注销（当前用户：{{userInfo.username}} ）</el-button
           >
-          <el-button v-else type="text" class="login-button" v-on:click="login"
+          <el-button v-else type="text" class="login-button" @click="dialogFormVisible = true"
             >登录</el-button
           >
         </el-menu-item>
       </el-menu>
     </div>
+
+    <el-dialog :visible.sync="dialogFormVisible" width="400px">
+      <el-form :model="form">
+        <el-form-item label="用户名" :label-width="formLabelWidth">
+          <el-input v-model="form.username" autocomplete="on"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" :label-width="formLabelWidth">
+          <el-input v-model="form.password" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="login">登 录</el-button>
+      </div>
+    </el-dialog>
 
     <router-view />
   </div>
@@ -75,6 +90,18 @@ export default {
   data() {
     return {
       userInfo: window.localStorage.getItem('userInfo'),
+      dialogFormVisible: false,
+      form: {
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: '',
+      },
+      formLabelWidth: '56px',
     };
   },
   methods: {
@@ -85,20 +112,36 @@ export default {
 
     login() {
       this.axios.post('/api/users/login', {
-        userName: 'YZJ',
-        password: '123',
+        username: this.$data.form.username,
+        password: this.$data.form.password,
       })
         .then((res) => {
-          console.log(res);
+          if (res.data) {
+            const userInfo = {
+              id: res.data.id,
+              username: res.data.user_name,
+            };
+            this.$data.dialogFormVisible = false;
+            window.localStorage.userInfo = userInfo;
+            this.$data.userInfo = userInfo;
+            this.$message('登陆成功');
+          } else {
+            this.$message('登陆失败');
+          }
         })
         .catch((err) => {
+          this.$message('登陆失败');
           console.error(err);
         });
     },
 
     logout() {
-      window.localStorage.setItem('userInfo', null);
+      window.localStorage.removeItem('userInfo');
       this.$data.userInfo = null;
+      this.$message('已退出');
+      if (this.$route.path === '/write') {
+        this.$router.replace('/');
+      }
     },
   },
 };

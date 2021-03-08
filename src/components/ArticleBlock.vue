@@ -1,7 +1,7 @@
 <template>
   <div class="block">
     <div class="title">{{ article.title }}</div>
-    <div class="content">{{ article.content }}</div>
+    <div v-html="article.content" class="content"></div>
     <div class="footer">
       <span class="author">{{ article.authorName }}</span>
       <span class="time">{{ article.createTime }}</span>
@@ -29,7 +29,7 @@ export default {
   }
 
   .footer {
-    padding: 16px 0;
+    padding: 6px 0 16px 0;
     font-size: 0.7em;
     line-height: 0.7em;
     .author {

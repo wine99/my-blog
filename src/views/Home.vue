@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <ArticleBlock v-for="article in articles" :key="article.id" v-bind:article="article" />
+    <ArticleBlock v-for="article in articles" :key="article.id" :article="article" />
   </div>
 </template>
 

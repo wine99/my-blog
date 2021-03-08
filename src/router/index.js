@@ -25,6 +25,13 @@ const routes = [
     path: '/write',
     name: 'Write',
     component: Write,
+    beforeEnter: (to, from, next) => {
+      if (window.localStorage.getItem('userInfo')) {
+        next();
+      } else {
+        next(new Error('请先登录'));
+      }
+    },
   },
 ];
 

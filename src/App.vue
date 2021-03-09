@@ -20,7 +20,7 @@
             type="text"
             class="login-button"
             @click="logout"
-            >注销（当前用户：{{ userInfo.username }} ）</el-button
+            >注销（当前用户：{{ $userInfo.username }} ）</el-button
           >
           <el-button
             v-else
@@ -101,7 +101,7 @@ export default {
   name: 'App',
   data() {
     return {
-      logined: !!this.userInfo,
+      logined: !!this.$userInfo,
       dialogFormVisible: false,
       form: {
         name: '',
@@ -137,7 +137,7 @@ export default {
             };
             this.$data.dialogFormVisible = false;
             window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
-            this.userInfo = userInfo;
+            this.$userInfo = userInfo;
             this.$data.logined = true;
             this.$message('登录成功');
           } else {
@@ -153,7 +153,7 @@ export default {
 
     logout() {
       window.localStorage.removeItem('userInfo');
-      this.userInfo = null;
+      this.$userInfo = null;
       this.$data.logined = false;
       this.$message('已退出');
       if (this.$route.path === '/write') {

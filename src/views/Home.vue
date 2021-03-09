@@ -38,7 +38,7 @@ export default {
           articles = articles.map((article) => {
             const { ...camel } = article;
             camel.createTime = dayjs(article.create_time).format('YYYY-MM-DD');
-            camel.authorName = article.user_name;
+            camel.authorName = article.username;
             return camel;
           });
           this.$data.articles = articles;

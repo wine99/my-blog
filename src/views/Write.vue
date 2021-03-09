@@ -15,6 +15,41 @@
   </div>
 </template>
 
+<style lang="scss" scoped>
+.write {
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    padding: 20px;
+    padding-top: 0;
+    display: flex;
+
+    .release-button {
+      margin-left: 30px;
+    }
+  }
+
+  .editor {
+    flex-grow: 1;
+
+    // TODO why does this not work?
+    .op-image {
+      .dropdown-item:last-of-type {
+        // Disable 'upload image' feature
+        display: none !important;
+      }
+    }
+  }
+}
+</style>
+<style>
+.op-image .dropdown-item:last-of-type {
+  display: none !important;
+}
+</style>
+
 <script>
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
@@ -53,37 +88,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped>
-.write {
-  height: calc(100vh - 100px);
-  display: flex;
-  flex-direction: column;
-
-  .header {
-    padding: 20px;
-    padding-top: 0;
-    display: flex;
-
-    .release-button {
-      margin-left: 30px;
-    }
-  }
-
-  .editor {
-    flex-grow: 1;
-
-    // TODO why does this not work?
-    .op-image {
-      .dropdown-item:last-of-type {
-        display: none !important;
-      }
-    }
-  }
-}
-</style>
-<style>
-.op-image .dropdown-item:last-of-type {
-  display: none !important;
-}
-</style>

@@ -9,15 +9,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'ArticleBlock',
-  props: {
-    article: Object,
-  },
-};
-</script>
-
 <style lang="scss" scoped>
 .block {
   margin-bottom: 40px;
@@ -41,3 +32,12 @@ export default {
   }
 }
 </style>
+
+<script>
+export default {
+  name: 'ArticleBlock',
+  props: {
+    article: Object,
+  },
+};
+</script>

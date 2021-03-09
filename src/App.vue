@@ -32,7 +32,7 @@
     <el-dialog :visible.sync="dialogFormVisible" width="400px">
       <el-form :model="form">
         <el-form-item label="用户名" :label-width="formLabelWidth">
-          <el-input v-model="form.username" autocomplete="on"></el-input>
+          <el-input v-model="form.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
           <el-input v-model="form.password" autocomplete="off"></el-input>
@@ -119,7 +119,7 @@ export default {
           if (res.data) {
             const userInfo = {
               id: res.data.id,
-              username: res.data.user_name,
+              username: res.data.username,
             };
             this.$data.dialogFormVisible = false;
             window.localStorage.userInfo = userInfo;

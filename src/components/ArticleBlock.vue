@@ -16,11 +16,12 @@
 
   .title {
     font-size: 1.5rem;
-    padding-bottom: 6px;
+    // padding-bottom: 6px;
   }
 
   .footer {
-    padding: 6px 0 16px 0;
+    // padding: 6px 0 16px 0;
+    padding: 0 0 16px 0;
     font-size: 0.7em;
     line-height: 0.7em;
     .author {

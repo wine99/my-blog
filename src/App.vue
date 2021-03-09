@@ -56,7 +56,9 @@
       </div>
     </el-dialog>
 
-    <router-view />
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

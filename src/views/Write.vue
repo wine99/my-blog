@@ -78,12 +78,28 @@ export default {
     },
 
     release() {
-      const html = this.$refs.md.d_render;
-      console.log(html);
-      // const newArticle = {
-      //   author_id: this.userInfo,
-      //   title: this.$data.title,
-      // };
+      const { title } = this.$data;
+      const content = this.$refs.md.d_render.trim();
+      if (!title || !content) return;
+      this.axios
+        .post('/api/articles/new', {
+          author_id: this.$userInfo.id,
+          title,
+          create_time: new Date(),
+          content,
+        })
+        .then((res) => {
+          if (+res.data?.newArticleId) {
+            this.$message('发布成功');
+            this.$router.replace('/');
+          } else {
+            this.$message('发布失败');
+            console.error(res);
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     },
 
     noSuchFunc() {

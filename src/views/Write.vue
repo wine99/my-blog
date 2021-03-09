@@ -34,7 +34,7 @@
   .editor {
     flex-grow: 1;
 
-    // TODO why does this not work?
+    // FIXME why does this not work?
     .op-image {
       .dropdown-item:last-of-type {
         // Disable 'upload image' feature
@@ -78,7 +78,7 @@ export default {
     },
 
     release() {
-      const { title } = this.$data;
+      const { title } = this;
       const content = this.$refs.md.d_render.trim();
       if (!title || !content) return;
       this.axios

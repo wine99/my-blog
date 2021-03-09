@@ -125,11 +125,11 @@ export default {
     },
 
     login() {
-      if (!this.$data.form.username || !this.$data.form.username) return;
+      if (!this.form.username || !this.form.username) return;
       this.axios
         .post('/api/users/login', {
-          username: this.$data.form.username,
-          password: this.$data.form.password,
+          username: this.form.username,
+          password: this.form.password,
         })
         .then((res) => {
           if (res.data) {
@@ -137,10 +137,10 @@ export default {
               id: res.data.id,
               username: res.data.username,
             };
-            this.$data.dialogFormVisible = false;
+            this.dialogFormVisible = false;
             window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
             this.$userInfo = userInfo;
-            this.$data.logined = true;
+            this.logined = true;
             this.$message('登录成功');
           } else {
             this.$message('密码错误');
@@ -156,7 +156,7 @@ export default {
     logout() {
       window.localStorage.removeItem('userInfo');
       this.$userInfo = null;
-      this.$data.logined = false;
+      this.logined = false;
       this.$message('已退出');
       if (this.$route.path === '/write') {
         this.$router.replace('/');

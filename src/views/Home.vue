@@ -20,8 +20,10 @@ export default {
   components: {
     ArticleBlock,
   },
-  mounted() {
-    this.getAllArticles();
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.getAllArticles();
+    });
   },
 
   data() {
@@ -41,7 +43,7 @@ export default {
             camel.authorName = article.username;
             return camel;
           });
-          this.$data.articles = articles;
+          this.articles = articles;
         })
         .catch((err) => {
           console.error(err);

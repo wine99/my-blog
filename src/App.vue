@@ -16,13 +16,17 @@
         <el-menu-item index="/about">关于</el-menu-item>
         <el-menu-item id="login-menu-item">
           <el-button
-            v-if="userInfo"
+            v-if="logined"
             type="text"
             class="login-button"
             @click="logout"
-            >注销（当前用户：{{userInfo.username}} ）</el-button
+            >注销（当前用户：{{ userInfo.username }} ）</el-button
           >
-          <el-button v-else type="text" class="login-button" @click="dialogFormVisible = true"
+          <el-button
+            v-else
+            type="text"
+            class="login-button"
+            @click="dialogFormVisible = true"
             >登录</el-button
           >
         </el-menu-item>
@@ -32,10 +36,18 @@
     <el-dialog :visible.sync="dialogFormVisible" width="400px">
       <el-form :model="form">
         <el-form-item label="用户名" :label-width="formLabelWidth">
-          <el-input v-model="form.username" autocomplete="off"></el-input>
+          <el-input
+            v-model="form.username"
+            autocomplete="off"
+            @keyup.enter.native="login"
+          ></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input v-model="form.password" autocomplete="off"></el-input>
+          <el-input
+            v-model="form.password"
+            autocomplete="off"
+            @keyup.enter.native="login"
+          ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -89,7 +101,7 @@ export default {
   name: 'App',
   data() {
     return {
-      userInfo: window.localStorage.getItem('userInfo'),
+      logined: !!this.userInfo,
       dialogFormVisible: false,
       form: {
         name: '',
@@ -111,10 +123,12 @@ export default {
     },
 
     login() {
-      this.axios.post('/api/users/login', {
-        username: this.$data.form.username,
-        password: this.$data.form.password,
-      })
+      if (!this.$data.form.username || !this.$data.form.username) return;
+      this.axios
+        .post('/api/users/login', {
+          username: this.$data.form.username,
+          password: this.$data.form.password,
+        })
         .then((res) => {
           if (res.data) {
             const userInfo = {
@@ -122,22 +136,25 @@ export default {
               username: res.data.username,
             };
             this.$data.dialogFormVisible = false;
-            window.localStorage.userInfo = userInfo;
-            this.$data.userInfo = userInfo;
-            this.$message('登陆成功');
+            window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
+            this.userInfo = userInfo;
+            this.$data.logined = true;
+            this.$message('登录成功');
           } else {
-            this.$message('登陆失败');
+            this.$message('密码错误');
+            console.log(res);
           }
         })
         .catch((err) => {
-          this.$message('登陆失败');
+          this.$message('登录失败');
           console.error(err);
         });
     },
 
     logout() {
       window.localStorage.removeItem('userInfo');
-      this.$data.userInfo = null;
+      this.userInfo = null;
+      this.$data.logined = false;
       this.$message('已退出');
       if (this.$route.path === '/write') {
         this.$router.replace('/');

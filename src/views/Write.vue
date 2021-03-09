@@ -80,6 +80,10 @@ export default {
     release() {
       const html = this.$refs.md.d_render;
       console.log(html);
+      // const newArticle = {
+      //   author_id: this.userInfo,
+      //   title: this.$data.title,
+      // };
     },
 
     noSuchFunc() {

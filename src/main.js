@@ -7,6 +7,7 @@ import router from './router';
 
 Vue.config.productionTip = false;
 Vue.prototype.axios = axios;
+Vue.prototype.userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
 
 Vue.use(ElementUI);
 

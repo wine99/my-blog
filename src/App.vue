@@ -88,6 +88,8 @@ a {
   #login-menu-item {
     float: right;
     padding: 0;
+    // FIXME Why, after click, would this be activated?
+    border-bottom-color: transparent !important;
   }
 
   .login-button {
@@ -106,14 +108,8 @@ export default {
       logined: !!this.$userInfo,
       dialogFormVisible: false,
       form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: '',
+        username: '',
+        password: '',
       },
       formLabelWidth: '56px',
     };
@@ -127,7 +123,7 @@ export default {
     login() {
       if (!this.form.username || !this.form.username) return;
       this.axios
-        .post('/api/users/login', {
+        .post('/api/user/login', {
           username: this.form.username,
           password: this.form.password,
         })

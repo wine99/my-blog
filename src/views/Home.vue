@@ -6,14 +6,14 @@
 
 <style lang="scss" scoped>
 .home {
-  width: 80%;
+  width: 75%;
   margin: auto auto 20px;
 }
 </style>
 
 <script>
 import ArticleBlock from '@/components/ArticleBlock.vue';
-import dayjs from 'dayjs';
+import { processArticleObject } from '../helpers/helpers';
 
 export default {
   name: 'Home',
@@ -34,15 +34,10 @@ export default {
 
   methods: {
     getAllArticles() {
-      this.axios.get('/api/articles/all')
+      this.axios.get('/api/article/all')
         .then((res) => {
           let articles = res.data;
-          articles = articles.map((article) => {
-            const { ...camel } = article;
-            camel.createTime = dayjs(article.create_time).format('YYYY-MM-DD');
-            camel.authorName = article.username;
-            return camel;
-          });
+          articles = articles.map((article) => processArticleObject(article));
           this.articles = articles;
         })
         .catch((err) => {

@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import Write from '../views/Write.vue';
+import ArticlePage from '../views/ArticlePage.vue';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,11 @@ const routes = [
         next(new Error('请先登录'));
       }
     },
+  },
+  {
+    path: '/article/:id',
+    name: 'ArticlePage',
+    component: ArticlePage,
   },
 ];
 

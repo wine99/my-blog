@@ -1,6 +1,8 @@
 <template>
   <div class="block">
-    <div class="title">{{ article.title }}</div>
+    <div class="title">
+      <span @click="goToArticlePage" style="cursor: pointer">{{ article.title }}</span>
+    </div>
     <div v-html="content" class="content"></div>
     <div class="footer">
       <span class="author">{{ article.authorName }}</span>
@@ -51,6 +53,11 @@ export default {
   computed: {
     content() {
       return this.article.content.replace(/<[^>]+>/g, '');
+    },
+  },
+  methods: {
+    goToArticlePage() {
+      this.$router.push(`/article/${this.article.id}`);
     },
   },
 };

@@ -82,7 +82,7 @@ export default {
       const content = this.$refs.md.d_render.trim();
       if (!title || !content) return;
       this.axios
-        .post('/api/articles/new', {
+        .post('/api/article/new', {
           author_id: this.$userInfo.id,
           title,
           create_time: new Date(),

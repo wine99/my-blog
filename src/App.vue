@@ -128,23 +128,21 @@ export default {
           password: this.form.password,
         })
         .then((res) => {
-          if (res.data) {
+          if (res.data.errno === -1) {
+            this.$message(res.data.message);
+          } else {
             const userInfo = {
-              id: res.data.id,
-              username: res.data.username,
+              id: res.data.data.id,
+              username: res.data.data.username,
             };
             this.dialogFormVisible = false;
             window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
             this.$userInfo = userInfo;
             this.logined = true;
             this.$message('登录成功');
-          } else {
-            this.$message('密码错误');
-            console.log(res);
           }
         })
         .catch((err) => {
-          this.$message('登录失败');
           console.error(err);
         });
     },

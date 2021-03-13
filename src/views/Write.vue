@@ -89,12 +89,11 @@ export default {
           content,
         })
         .then((res) => {
-          if (+res.data?.newArticleId) {
-            this.$message('发布成功');
-            this.$router.replace('/');
+          if (res.data.errno === -1) {
+            this.$message(res.data.message);
           } else {
-            this.$message('发布失败');
-            console.error(res);
+            this.$message(res.data.message || '发布成功');
+            this.$router.replace('/');
           }
         })
         .catch((err) => {

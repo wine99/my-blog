@@ -53,7 +53,11 @@ export default {
     getArticleDetail(id) {
       this.axios.get(`/api/article/${id}`)
         .then((res) => {
-          this.article = processArticleObject(res.data);
+          if (res.data.errno === -1) {
+            this.$message(res.data.message);
+          } else {
+            this.article = processArticleObject(res.data.data);
+          }
         })
         .catch((err) => {
           console.error(err);

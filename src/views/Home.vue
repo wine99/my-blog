@@ -36,9 +36,13 @@ export default {
     getAllArticles() {
       this.axios.get('/api/article/all')
         .then((res) => {
-          let articles = res.data;
-          articles = articles.map((article) => processArticleObject(article));
-          this.articles = articles;
+          if (res.data.errno === -1) {
+            this.$message(res.data.message);
+          } else {
+            let articles = res.data.data;
+            articles = articles.map((article) => processArticleObject(article));
+            this.articles = articles;
+          }
         })
         .catch((err) => {
           console.error(err);

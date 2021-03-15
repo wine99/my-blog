@@ -1,19 +1,29 @@
 <template>
   <div class="article-page" v-if="article">
-    <h1 class="title">{{ article.title }}</h1>
-    <div class="info">
-      <div class="author">{{ article.authorName }}</div>
-      <div class="time">发布于：{{ article.createdAt }}</div>
+    <link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet">
+    <!-- <link href="../assets/hljs.default.css" rel="stylesheet" > -->
+    <div class="header">
+      <h1 class="title">{{ article.title }}</h1>
+      <div class="info">
+        <div class="author">{{ article.authorName }}</div>
+        <div class="time">发布于：{{ article.createdAt }}</div>
+      </div>
     </div>
-    <div v-html="article.content" class="content"/>
+    <div v-html="article.content" class="markdown-body"/>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .article-page {
   text-align: left;
-  width: 75%;
-  margin: auto;
+}
+
+.header {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 10px 45px;
 
   .info {
     display: flex;
@@ -30,9 +40,25 @@
     }
   }
 }
+
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
+}
 </style>
 
 <script>
+import '../assets/hljs.default.css';
+
 import { processArticleObject } from '../helpers/helpers';
 
 export default {

@@ -27,18 +27,25 @@
 
 <style lang="scss" scoped>
 .home {
-  width: 75%;
-  margin: auto auto 20px;
   text-align: left;
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 20px 45px;
 
   .radio {
-    padding: 0 0 20px 40px;
+    padding: 0 0 20px 0;
     display: flex;
     align-items: center;
 
     .radio-title {
       margin-right: 20px;
     }
+  }
+
+  .el-timeline {
+    padding-left: 0;
   }
 
   .title {

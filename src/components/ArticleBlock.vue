@@ -6,7 +6,7 @@
     <div v-html="content" class="content"></div>
     <div class="footer">
       <span class="author">{{ article.authorName }}</span>
-      <span class="time">{{ article.createTime }}</span>
+      <span class="time">{{ article.createdAt }}</span>
     </div>
   </div>
 </template>

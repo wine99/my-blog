@@ -12,7 +12,7 @@
     <el-timeline :reverse="reverseArticles">
       <el-timeline-item
         v-for="article in articles"
-        :timestamp="article.createTime"
+        :timestamp="article.createdAt"
         placement="top"
         :key="article.id"
       >

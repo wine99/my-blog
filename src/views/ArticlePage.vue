@@ -3,7 +3,7 @@
     <h1 class="title">{{ article.title }}</h1>
     <div class="info">
       <div class="author">{{ article.authorName }}</div>
-      <div class="time">发布于：{{ article.createTime }}</div>
+      <div class="time">发布于：{{ article.createdAt }}</div>
     </div>
     <div v-html="article.content" class="content"/>
   </div>

@@ -85,7 +85,7 @@ export default {
         .post('/api/article/new', {
           author_id: this.$userInfo.id,
           title,
-          create_time: new Date(),
+          created_at: new Date(),
           content,
         })
         .then((res) => {

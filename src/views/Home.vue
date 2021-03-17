@@ -1,17 +1,27 @@
 <template>
   <div class="home">
 
-    <div class="radio">
-      <div class="radio-title">排序：</div>
-      <el-radio-group v-model="reverseArticles">
-        <el-radio :label="false" border>倒序</el-radio>
-        <el-radio :label="true" border>正序</el-radio>
-      </el-radio-group>
+    <div class="toolbar">
+      <div class="radio">
+        <div class="radio-title">排序：</div>
+        <el-radio-group v-model="reverseArticles">
+          <el-radio :label="false" border>倒序</el-radio>
+          <el-radio :label="true" border>正序</el-radio>
+        </el-radio-group>
+      </div>
+      <div class="search">
+        <el-input
+          placeholder="检索文章标题"
+          prefix-icon="el-icon-search"
+          v-model="filter"
+          >
+        </el-input>
+      </div>
     </div>
 
     <el-timeline :reverse="reverseArticles">
       <el-timeline-item
-        v-for="article in articles"
+        v-for="article in filterdArticles"
         :timestamp="article.createdAt"
         placement="top"
         :key="article.id"
@@ -34,13 +44,19 @@
   margin: 0 auto;
   padding: 20px 45px;
 
-  .radio {
-    padding: 0 0 20px 0;
+  .toolbar {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    padding: 0 0 20px 0;
 
-    .radio-title {
-      margin-right: 20px;
+    .radio {
+      display: flex;
+      align-items: center;
+
+      .radio-title {
+        margin-right: 20px;
+      }
     }
   }
 
@@ -78,7 +94,17 @@ export default {
     return {
       reverseArticles: false,
       articles: [],
+      filter: '',
     };
+  },
+
+  computed: {
+    filterdArticles() {
+      if (this.filter.trim() && this.articles.length) {
+        return this.articles.filter((article) => article.title.includes(this.filter.trim()));
+      }
+      return this.articles;
+    },
   },
 
   methods: {

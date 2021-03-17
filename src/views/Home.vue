@@ -1,5 +1,13 @@
 <template>
   <div class="home">
+  <!-- <div class="home" @scroll="onScroll"> -->
+  <!-- <div class="home"
+    v-infinite-scroll="loadMore"
+    infinite-scroll-delay="200"
+    infinite-scroll-immediate="true"
+    infinite-scroll-distance="100"
+    style="overflow-y: auto;"
+  > -->
 
     <div class="toolbar">
       <div class="radio">
@@ -89,6 +97,12 @@ export default {
       vm.getAllArticles();
     });
   },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll, true);
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
 
   data() {
     return {
@@ -128,6 +142,24 @@ export default {
         .catch((err) => {
           console.error(err);
         });
+    },
+
+    loadMore() {
+      console.log('loadMore');
+    },
+    // onScroll(e) {
+    //   console.log(e);
+    // },
+    handleScroll() {
+      const clientHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      // TODO: scroll 的是 body，其 scrollTop 永远为 0，怎么实现触底加载
+      const scrollObj = document.body;
+      const { scrollTop } = scrollObj;
+      const { scrollHeight } = scrollObj;
+      // console.log(scrollTop, clientHeight, scrollHeight);
+      if (scrollTop + clientHeight === scrollHeight) {
+        this.loadMore();
+      }
     },
 
     goToArticlePage(e) {

@@ -7,7 +7,11 @@ import router from './router';
 
 Vue.config.productionTip = false;
 Vue.prototype.axios = axios;
-Vue.prototype.$userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+Object.defineProperty(Vue.prototype, '$userInfo', {
+  get() {
+    return JSON.parse(window.localStorage.getItem('userInfo')) ?? null;
+  },
+});
 
 Vue.use(ElementUI);
 
@@ -20,5 +24,5 @@ const vue = new Vue({
 // variable 'const vue' was introduced
 // and the router logic should not be written in this file
 router.onError((err) => {
-  vue.$message(err.message);
+  vue.$message.error(err.message);
 });

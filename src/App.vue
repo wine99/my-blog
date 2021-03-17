@@ -130,7 +130,7 @@ export default {
         })
         .then((res) => {
           if (res.data.errno === -1) {
-            this.$message(res.data.message);
+            this.$message.error(res.data.message);
           } else {
             const userInfo = {
               id: res.data.data.id,
@@ -138,9 +138,8 @@ export default {
             };
             this.dialogFormVisible = false;
             window.localStorage.setItem('userInfo', JSON.stringify(userInfo));
-            this.$userInfo = userInfo;
             this.logined = true;
-            this.$message('登录成功');
+            this.$message.success('登录成功');
           }
         })
         .catch((err) => {
@@ -150,10 +149,9 @@ export default {
 
     logout() {
       window.localStorage.removeItem('userInfo');
-      this.$userInfo = null;
       this.logined = false;
-      this.$message('已退出');
-      if (this.$route.path === '/write') {
+      this.$message.success('已退出');
+      if (this.$route.name === 'Write') {
         this.$router.replace('/');
       }
     },

@@ -23,9 +23,10 @@ const routes = [
     // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
-    path: '/write',
+    path: '/write/:id?',
     name: 'Write',
     component: Write,
+    props: true,
     beforeEnter: (to, from, next) => {
       if (window.localStorage.getItem('userInfo')) {
         next();

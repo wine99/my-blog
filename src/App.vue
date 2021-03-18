@@ -59,25 +59,51 @@
     <keep-alive>
       <router-view />
     </keep-alive>
+
+    <el-backtop />
+    <!-- FIXME Not work -->
+    <!-- <el-backtop target="body" :bottom="100">
+      <div
+        style="{
+          height: 100%;
+          width: 100%;
+          background-color: #f2f5f6;
+          box-shadow: 0 0 6px rgba(0,0,0, .12);
+          text-align: center;
+          line-height: 40px;
+          color: #1989fa;
+        }"
+      >
+        UP
+      </div>
+    </el-backtop> -->
+
   </div>
 </template>
 
 <style lang="scss">
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding-top: 80px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-body {
-  margin: 0;
-  margin-top: 80px;
-}
-
-a {
-  text-decoration: none;
+  height: 100%;
 }
 
 .nav {
